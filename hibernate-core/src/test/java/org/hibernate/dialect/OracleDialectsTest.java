@@ -57,5 +57,11 @@ public class OracleDialectsTest {
 
 		Oracle12cDialect oracle12cDialect = new Oracle12cDialect();
 		assertEquals( "true", oracle12cDialect.getDefaultProperties().getProperty( Environment.BATCH_VERSIONED_DATA ) );
+
+		Oracle19cDialect oracle19cDialect = new Oracle19cDialect();
+		assertEquals( "true", oracle19cDialect.getDefaultProperties().getProperty( Environment.BATCH_VERSIONED_DATA ) );
+
+		Oracle21cDialect oracle21cDialect = new Oracle21cDialect();
+		assertEquals( "true", oracle21cDialect.getDefaultProperties().getProperty( Environment.BATCH_VERSIONED_DATA ) );
 	}
 }

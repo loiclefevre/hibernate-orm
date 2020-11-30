@@ -12,6 +12,7 @@ import org.hibernate.engine.config.spi.StandardConverters;
 import org.hibernate.service.ServiceRegistry;
 
 import java.sql.Types;
+import java.util.List;
 
 /**
  * An SQL dialect for Oracle Converged Database 19c.
@@ -84,5 +85,11 @@ public class Oracle19cDialect extends Oracle12cDialect {
 
 		registerColumnType(Types.LONGVARCHAR, "clob");
 		registerColumnType(Types.LONGVARBINARY, "blob");
+	}
+
+	@Override
+	public void augmentRecognizedTableTypes(List<String> tableTypesList) {
+		super.augmentRecognizedTableTypes( tableTypesList );
+		tableTypesList.add( "MATERIALIZED VIEW" );
 	}
 }
