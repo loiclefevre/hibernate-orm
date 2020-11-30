@@ -7,6 +7,8 @@
 package org.hibernate.dialect;
 
 import org.hibernate.boot.model.TypeContributions;
+import org.hibernate.dialect.identity.IdentityColumnSupport;
+import org.hibernate.dialect.identity.Oracle19cIdentityColumnSupport;
 import org.hibernate.engine.config.spi.ConfigurationService;
 import org.hibernate.engine.config.spi.StandardConverters;
 import org.hibernate.service.ServiceRegistry;
@@ -87,13 +89,18 @@ public class Oracle19cDialect extends Oracle12cDialect {
 		registerColumnType(Types.LONGVARCHAR, "clob");
 		registerColumnType(Types.LONGVARBINARY, "blob");
 
-		registerHibernateType( Types.CLOB, StandardBasicTypes.TEXT.getName() );
-		registerHibernateType( Types.BLOB, StandardBasicTypes.IMAGE.getName() );
+		registerHibernateType(Types.CLOB, StandardBasicTypes.TEXT.getName());
+		registerHibernateType(Types.BLOB, StandardBasicTypes.IMAGE.getName());
 	}
 
 	@Override
 	public void augmentRecognizedTableTypes(List<String> tableTypesList) {
-		super.augmentRecognizedTableTypes( tableTypesList );
-		tableTypesList.add( "MATERIALIZED VIEW" );
+		super.augmentRecognizedTableTypes(tableTypesList);
+		tableTypesList.add("MATERIALIZED VIEW");
+	}
+
+	@Override
+	public IdentityColumnSupport getIdentityColumnSupport() {
+		return new Oracle19cIdentityColumnSupport();
 	}
 }
