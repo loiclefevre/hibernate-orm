@@ -10,6 +10,7 @@ import org.hibernate.boot.model.TypeContributions;
 import org.hibernate.engine.config.spi.ConfigurationService;
 import org.hibernate.engine.config.spi.StandardConverters;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.StandardBasicTypes;
 
 import java.sql.Types;
 import java.util.List;
@@ -80,11 +81,14 @@ public class Oracle19cDialect extends Oracle12cDialect {
 
 		registerColumnType(Types.VARBINARY, 2000, "raw($l)");
 
-		registerColumnType(Types.BLOB, "blob");
 		registerColumnType(Types.CLOB, "clob");
+		registerColumnType(Types.BLOB, "blob");
 
 		registerColumnType(Types.LONGVARCHAR, "clob");
 		registerColumnType(Types.LONGVARBINARY, "blob");
+
+		registerHibernateType( Types.CLOB, StandardBasicTypes.TEXT.getName() );
+		registerHibernateType( Types.BLOB, StandardBasicTypes.IMAGE.getName() );
 	}
 
 	@Override
