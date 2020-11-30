@@ -549,15 +549,12 @@ public class Table implements RelationalModel, Serializable, Exportable {
 					.append( ' ' );
 
 			if ( identityColumn && col.getQuotedName( dialect ).equals( pkname ) ) {
-				log.error("--- IDENTITY ---");
 				// to support dialects that have their own identity data type
 				if ( dialect.getIdentityColumnSupport().hasDataTypeInIdentityColumn() ) {
 					buf.append( col.getSqlType( dialect, p ) );
-					log.error("--- IDENTITY 1 ---\n"+buf.toString());
 				}
 				buf.append( ' ' )
 						.append( dialect.getIdentityColumnSupport().getIdentityColumnString( col.getSqlTypeCode( p ) ) );
-				log.error("--- IDENTITY 2 ---\n"+buf.toString());
 			}
 			else {
 
