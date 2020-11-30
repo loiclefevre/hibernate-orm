@@ -30,6 +30,8 @@ public class Oracle19cDialect extends Oracle12cDialect {
 
 	public static final String MAX_STRING_SIZE_EXTENDED = "hibernate.dialect.oracle.max_string_size_extended";
 
+	protected boolean hasMaxStringSizeExtendedEnabled;
+
 	public Oracle19cDialect() {
 		super();
 
@@ -40,27 +42,18 @@ public class Oracle19cDialect extends Oracle12cDialect {
 	public void contributeTypes(TypeContributions typeContributions, ServiceRegistry serviceRegistry) {
 		super.contributeTypes(typeContributions, serviceRegistry);
 
-		// Use setString / getString for CLOB and NCLOB
-//		typeContributions.contributeType(MaterializedClobType.INSTANCE, "String", String.class.getName());
-//		typeContributions.contributeType(MaterializedNClobType.INSTANCE, "String", String.class.getName());
-
 		// account for Oracle's max_string_size = EXTENDED
-		boolean hasMaxStringSizeExtendedEnabled = serviceRegistry.getService(ConfigurationService.class).getSetting(
+		this.hasMaxStringSizeExtendedEnabled = serviceRegistry.getService(ConfigurationService.class).getSetting(
 				MAX_STRING_SIZE_EXTENDED,
 				StandardConverters.BOOLEAN,
 				false
 		);
 
-		if (hasMaxStringSizeExtendedEnabled) {
-			registerColumnType(Types.CHAR, "char(1 char)");
-			registerColumnType(Types.VARCHAR, 32767, "varchar2($l char)");
-			registerColumnType(Types.VARCHAR, "long");
-			registerColumnType(Types.NVARCHAR, "nvarchar2($l)");
-			registerColumnType(Types.LONGNVARCHAR, "nvarchar2($l)");
-		}
-		else {
-			super.registerCharacterTypeMappings();
-		}
+		// called from parent constructor
+		registerColumnType(Types.CHAR, "char(1 char)");
+		registerColumnType(Types.VARCHAR, hasMaxStringSizeExtendedEnabled ? 32767 : 4000, "varchar2($l char)");
+		registerColumnType(Types.NVARCHAR, "nvarchar2($l)");
+		registerColumnType(Types.LONGNVARCHAR, "nvarchar2($l)");
 	}
 
 	@Override
@@ -73,6 +66,10 @@ public class Oracle19cDialect extends Oracle12cDialect {
 		return "select current_timestamp from dual";
 	}
 
+	/**
+	 * Avoids setting these from parent constructor
+	 * @see #contributeTypes
+	 */
 	@Override
 	protected void registerCharacterTypeMappings() {
 	}
