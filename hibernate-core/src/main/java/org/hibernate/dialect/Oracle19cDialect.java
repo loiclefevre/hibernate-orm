@@ -35,7 +35,116 @@ public class Oracle19cDialect extends Oracle12cDialect {
 	public Oracle19cDialect() {
 		super();
 
+		registerKeywords();
+
 		// register missing functions
+	}
+
+	protected void registerKeywords() {
+		// from https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Oracle-SQL-Reserved-Words.html
+		registerKeyword("all");
+		registerKeyword("alter");
+		registerKeyword("and");
+		registerKeyword("any");
+		registerKeyword("access");
+		registerKeyword("add");
+		registerKeyword("as");
+		registerKeyword("asc");
+		registerKeyword("audit");
+		registerKeyword("between");
+		registerKeyword("by");
+		registerKeyword("char");
+		registerKeyword("check");
+		registerKeyword("cluster");
+		registerKeyword("column_value");
+		registerKeyword("comment");
+		registerKeyword("compress");
+		registerKeyword("connect");
+		registerKeyword("create");
+		registerKeyword("date");
+		registerKeyword("decimal");
+		registerKeyword("default");
+		registerKeyword("delete");
+		registerKeyword("desc");
+		registerKeyword("distinct");
+		registerKeyword("drop");
+		registerKeyword("else");
+		registerKeyword("exclusive");
+		registerKeyword("exists");
+		registerKeyword("file");
+		registerKeyword("float");
+		registerKeyword("for");
+		registerKeyword("from");
+		registerKeyword("grant");
+		registerKeyword("group");
+		registerKeyword("having");
+		registerKeyword("identified");
+		registerKeyword("immediate");
+		registerKeyword("in");
+		registerKeyword("index");
+		registerKeyword("initial");
+		registerKeyword("insert");
+		registerKeyword("integer");
+		registerKeyword("intersect");
+		registerKeyword("into");
+		registerKeyword("is");
+		registerKeyword("like");
+		registerKeyword("level");
+		registerKeyword("lock");
+		registerKeyword("long");
+		registerKeyword("maxextents");
+		registerKeyword("minus");
+		registerKeyword("mlslabel");
+		registerKeyword("mode");
+		registerKeyword("modify");
+		registerKeyword("nested_table_id");
+		registerKeyword("noaudit");
+		registerKeyword("nocompress");
+		registerKeyword("not");
+		registerKeyword("nowait");
+		registerKeyword("null");
+		registerKeyword("number");
+		registerKeyword("of");
+		registerKeyword("offline");
+		registerKeyword("on");
+		registerKeyword("online");
+		registerKeyword("option");
+		registerKeyword("or");
+		registerKeyword("order");
+		registerKeyword("pctfree");
+		registerKeyword("prior");
+		registerKeyword("public");
+		registerKeyword("raw");
+		registerKeyword("rename");
+		registerKeyword("resource");
+		registerKeyword("revoke");
+		registerKeyword("rowid");
+		registerKeyword("rownum");
+		registerKeyword("select");
+		registerKeyword("session");
+		registerKeyword("set");
+		registerKeyword("share");
+		registerKeyword("size");
+		registerKeyword("smallint");
+		registerKeyword("start");
+		registerKeyword("successful");
+		registerKeyword("synonym");
+		registerKeyword("sysdate");
+		registerKeyword("table");
+		registerKeyword("then");
+		registerKeyword("to");
+		registerKeyword("trigger");
+		registerKeyword("uid");
+		registerKeyword("union");
+		registerKeyword("unique");
+		registerKeyword("update");
+		registerKeyword("validate");
+		registerKeyword("values");
+		registerKeyword("varchar");
+		registerKeyword("varchar2");
+		registerKeyword("view");
+		registerKeyword("where");
+		registerKeyword("with");
 	}
 
 	@Override
@@ -68,6 +177,7 @@ public class Oracle19cDialect extends Oracle12cDialect {
 
 	/**
 	 * Avoids setting these from parent constructor
+	 *
 	 * @see #contributeTypes
 	 */
 	@Override
