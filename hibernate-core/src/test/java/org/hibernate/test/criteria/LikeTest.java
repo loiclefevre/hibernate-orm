@@ -7,14 +7,13 @@
 package org.hibernate.test.criteria;
 import java.util.List;
 
+import org.hibernate.dialect.*;
+import org.hibernate.testing.SkipForDialect;
 import org.junit.Test;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.dialect.MySQLDialect;
-import org.hibernate.dialect.PostgreSQL81Dialect;
-import org.hibernate.dialect.PostgreSQLDialect;
 import org.hibernate.testing.junit4.BaseCoreFunctionalTestCase;
 
 import static org.junit.Assert.assertEquals;
@@ -25,6 +24,7 @@ public class LikeTest extends BaseCoreFunctionalTestCase {
         return new String[]{"criteria/TestObject.hbm.xml"};
     }
 
+    @SkipForDialect(value = Oracle19cDialect.class, comment = "table name not quoted for insert PreparedStatement")
 	@Test
     public void testLike(){
         Session session = openSession();
