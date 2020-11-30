@@ -10,8 +10,6 @@ import org.hibernate.boot.model.TypeContributions;
 import org.hibernate.engine.config.spi.ConfigurationService;
 import org.hibernate.engine.config.spi.StandardConverters;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.type.MaterializedClobType;
-import org.hibernate.type.MaterializedNClobType;
 
 import java.sql.Types;
 
@@ -21,6 +19,10 @@ import java.sql.Types;
  * @author loiclefevre (loic.lefevre@gmail.com)
  */
 public class Oracle19cDialect extends Oracle12cDialect {
+
+	// Tests:
+	// - ./gradlew sDB -Pdb=oracle
+	// - ./gradlew clean test
 
 	public static final String MAX_STRING_SIZE_EXTENDED = "hibernate.dialect.oracle.max_string_size_extended";
 
@@ -35,8 +37,8 @@ public class Oracle19cDialect extends Oracle12cDialect {
 		super.contributeTypes(typeContributions, serviceRegistry);
 
 		// Use setString / getString for CLOB and NCLOB
-		typeContributions.contributeType(MaterializedClobType.INSTANCE, "String", String.class.getName());
-		typeContributions.contributeType(MaterializedNClobType.INSTANCE, "String", String.class.getName());
+//		typeContributions.contributeType(MaterializedClobType.INSTANCE, "String", String.class.getName());
+//		typeContributions.contributeType(MaterializedNClobType.INSTANCE, "String", String.class.getName());
 
 		// account for Oracle's max_string_size = EXTENDED
 		boolean hasMaxStringSizeExtendedEnabled = serviceRegistry.getService(ConfigurationService.class).getSetting(
